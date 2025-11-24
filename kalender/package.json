@@ -1,0 +1,27 @@
+{
+  "name": "kalender",
+  "version": "1.0.0",
+  "description": "kalender app",
+  "keywords": [
+    "kalender"
+  ],
+  "homepage": "https://github.com/Icerbergsalat/Kalender#readme",
+  "bugs": {
+    "url": "https://github.com/Icerbergsalat/Kalender/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Icerbergsalat/Kalender.git"
+  },
+  "license": "ISC",
+  "author": "icebergsalat, iouhase, EnQiridion, GabrielRx31",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "vitest": "^4.0.13"
+  }
+}
