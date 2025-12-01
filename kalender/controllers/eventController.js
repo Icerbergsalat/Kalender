@@ -52,3 +52,15 @@ exports.deleteEvent = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.addParticipant = async (req, res) => {
+    try {
+        const event = await eventModel.findById(req.params.id);
+        if (!event) return res.status(404).json({ message: 'Event not found' });
+        event.participants += 1;
+        await event.save();
+        res.status(200).json(event);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
