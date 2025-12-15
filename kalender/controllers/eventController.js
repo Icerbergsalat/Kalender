@@ -1,9 +1,33 @@
 const eventModel = require('../models/eventModel');
+const { getWeatherForecast } = require('./weatherService');
 
 // Create a new event
 exports.createEvent = async (req, res) => {
     try {
-        const newEvent = await eventModel.create(req.body);
+        // Auto-generér unikt ID
+        const lastEvent = await eventModel.findOne().sort({ id: -1 });
+        const nextId = lastEvent ? lastEvent.id + 1 : 1;
+        
+        // Tilføj auto-genereret ID til event data
+        const eventData = {
+            ...req.body,
+            id: nextId
+        };
+        
+        // Hent vejrdata hvis der er coordinates og dato
+        if (eventData.coordinates && eventData.coordinates.lat && eventData.coordinates.lng && eventData.date) {
+            const weather = await getWeatherForecast(
+                eventData.coordinates.lat,
+                eventData.coordinates.lng,
+                eventData.date
+            );
+            
+            if (weather) {
+                eventData.weather = weather;
+            }
+        }
+        
+        const newEvent = await eventModel.create(eventData);
         res.status(201).json(newEvent);
     } catch (error) {
         res.status(400).json({ message: error.message });
