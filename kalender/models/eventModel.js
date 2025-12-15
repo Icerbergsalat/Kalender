@@ -9,8 +9,17 @@ const eventSchema = new Schema({
     location: {type: String},
     description: {type: String},
     participants: {type: Number, default: 0, required: true},
-    eventPlanner: {type: String}
-    //forecast: {type: ?????},
+    eventPlanner: {type: String},
+    // Nye felter til vejr og coordinates
+    coordinates: {
+        lat: {type: Number},
+        lng: {type: Number}
+    },
+    weather: {
+        temperature: {type: Number},
+        weatherCode: {type: Number},
+        description: {type: String}
+    }
 });
 
 module.exports = mongoose.model('Event', eventSchema);
